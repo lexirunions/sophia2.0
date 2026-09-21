@@ -1,0 +1,1 @@
+console.log("North Star Bakery JavaScript is connected!");
