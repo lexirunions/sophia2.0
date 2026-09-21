@@ -1,1 +1,2 @@
-console.log("North Star Bakery JavaScript is connected!");
+const form = document.getElementById("inquiry-form");
+console.log(form);
