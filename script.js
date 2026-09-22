@@ -2,33 +2,46 @@ const form = document.getElementById("inquiry-form");
 console.log(form);
 const productSelect = document.getElementById("product");
 const productMessage = document.getElementById("product-message");
+const productMessages = {
+    Cake: "Tell us the size, flavor, and occasion for your cake.",
+    Cupcakes: "Tell us the quantity, flavors, and frosting preferences for your cupcakes.",
+    Bread: "Tell us the quantity and type of artisan bread you would like.",
+    Pastries: "Tell us the qunatity and types of pastries you would like.",
+    Cookies: "Tell us the quantity, flavors, and any design requests for your cookies.",
+    Other: "Tell us what you have in mind and we'll see what we can bake for you!"
+};
+const storageKeys = {
+    product: "selectedProduct",
+    name: "customerName"
+};
+function updateProductMessage() {
+    productMessage.textContent = productMessages[productSelect.value] || "";
+}
+function validateName() {
+    const nameError = document.getElementById("name-error");
+    if (nameInput.value.trim() === "") {
+       nameError.textContent = "Please enter your name.";
+        return false;
+    } else {
+        nameError.textContent = "";
+        return true;
+    }
+}
 const nameInput = document.getElementById("name");
 nameInput.addEventListener("input", function() {
-localStorage.setItem("customerName", nameInput.value);
+localStorage.setItem(storageKeys.name, nameInput.value);
 });
-const savedName = localStorage.getItem("customerName");
+const savedName = localStorage.getItem(storageKeys.name);
 if (savedName) {
     nameInput.value = savedName;
 }
-const savedProduct = localStorage.getItem("selectedProduct");
+const savedProduct = localStorage.getItem(storageKeys.product);
 if (savedProduct) {
     productSelect.value = savedProduct;
 }
 productSelect.addEventListener("change", function() {
-    localStorage.setItem("selectedProduct", productSelect.value);
-    if (productSelect.value === "Cake") {
-        productMessage.textContent = "Tell us the size, flavor, and occasion for your cake.";
-    } else if (productSelect.value === "Cupcakes") {
-        productMessage.textContent = "Tell us the quantity, flavors, and frosting preferences for your cupcakes.";
-    } else if (productSelect.value === "Bread") {
-        productMessage.textContent = "Tell us the quantity and  type of artisan bread you would like.";
-    } else if (productSelect.value === "Pastries") {
-        productMessage.textContent = "Tell us the quantity and types of pastries you would like.";
-    } else if (productSelect.value === "Cookies") {
-        productMessage.textContent = "Tell us the quantity, flavors, and any design requests for your cookies.";
-    } else if (productSelect.value === "Other") {
-        productMessage.textContent = "Tell us what you have in mind and we'll see what we can bake for you!";
-    }
+    localStorage.setItem(storageKeys.product, productSelect.value);
+    updateProductMessage();
 });
 form.addEventListener("submit", function(event) {
     const nameError = document.getElementById("name-error");
@@ -37,11 +50,8 @@ form.addEventListener("submit", function(event) {
 
     let formIsValid = true;
 
-    if (nameInput.value.trim() === "") {
-        nameError.textContent = "Please enter your name.";
+    if (!validateName()) {
         formIsValid = false;
-    } else {
-        nameError.textContent = "";
     }
     if (
         emailInput.value.trim() === "" ||
