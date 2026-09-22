@@ -22,9 +22,11 @@
 <form id="inquiry-form">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name">
+    <span id="name-error"></span>
     <br>
     <label for="email">Email:</label>
     <input type="email" id="email" name="email">
+    <span id="email-error"></span>
     <br>
     <label for="pickup-date">Pickup Date:</label>
     <input type="date" id="pickup-date" name="pickup-date">
@@ -35,13 +37,14 @@
     <label for="product">What can we bake for you?</label>
     <select id="product" name="product">
     <option value=""Choose an option></option>
-    <option value="cake">Cake</option>
-    <option value="cupcakes">Cupcakes</option>
-    <option value="bread">Artisan Bread</option>
-    <option value="pastries">Pastries</option>
-    <option value="cookies">Cookies</option>
-    <option value="other">Other</option>
+    <option value="Cake">Cake</option>
+    <option value="Cupcakes">Cupcakes</option>
+    <option value="Bread">Artisan Bread</option>
+    <option value="Pastries">Pastries</option>
+    <option value="Cookies">Cookies</option>
+    <option value="Other">Other</option>
 </select>
+<p id="product-message"></p>
 <br>
 <label>Request Type:</label>
 <input type="radio" id="preorder" name="request-type" value="preorder"
